@@ -7,7 +7,6 @@ export default function Home() {
   const [content, setContent] = useState('');
   const [tone, setTone] = useState('Professional');
   const [industry, setIndustry] = useState('Fashion');
-  const [model, setModel] = useState('gemini');
   const [captions, setCaptions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -25,7 +24,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content, tone, industry, model }),
+        body: JSON.stringify({ content, tone, industry }),
       });
 
       const data = await response.json();
@@ -88,7 +87,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-white text-sm font-medium mb-2">
                   Tone
@@ -121,20 +120,6 @@ export default function Home() {
                   <option>Fitness</option>
                   <option>Technology</option>
                   <option>Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-white text-sm font-medium mb-2">
-                  AI Model
-                </label>
-                <select 
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
-                  value={model}
-                  onChange={(e) => setModel(e.target.value)}
-                >
-                  <option value="gemini">Gemini 2.0 Flash</option>
-                  <option value="deepseek">Deepseek R1 32B</option>
                 </select>
               </div>
             </div>

@@ -1,15 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
-
-// Initialize Google AI
-const googleAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
-
-async function generateWithGemini(prompt: string) {
-  const model = googleAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  return response.text();
-}
 
 async function generateWithDeepseek(prompt: string) {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -33,19 +22,14 @@ async function generateWithDeepseek(prompt: string) {
 
 export async function POST(req: Request) {
   try {
-    const { content, tone, industry, model } = await req.json();
+    const { content, tone, industry } = await req.json();
 
     const prompt = `Generate 3 engaging Instagram captions for a ${industry} post with a ${tone} tone. 
     The post is about: ${content}
     
     Generate each caption with relevant hashtags. Make them unique and creative. Format the response as plain text with each caption separated by "---" on its own line.`;
 
-    let captions;
-    if (model === 'gemini') {
-      captions = await generateWithGemini(prompt);
-    } else {
-      captions = await generateWithDeepseek(prompt);
-    }
+    const captions = await generateWithDeepseek(prompt);
 
     // Clean up and format the captions
     const formattedCaptions = captions
