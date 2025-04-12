@@ -50,8 +50,8 @@ export async function POST(req: Request) {
     // Clean up and format the captions
     const formattedCaptions = captions
       .split('---')
-      .map(caption => caption.trim())
-      .filter(caption => caption.length > 0);
+      .map((caption: string) => caption.trim())
+      .filter((caption: string) => caption.length > 0);
 
     return NextResponse.json({ captions: formattedCaptions });
   } catch (error) {

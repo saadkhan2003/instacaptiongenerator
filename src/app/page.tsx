@@ -76,7 +76,7 @@ export default function Home() {
           <form className="space-y-8" onSubmit={generateCaptions}>
             <div>
               <label className="block text-white text-sm font-medium mb-2">
-                What's your post about?
+                What&apos;s your post about?
               </label>
               <textarea
                 className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/50 focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
